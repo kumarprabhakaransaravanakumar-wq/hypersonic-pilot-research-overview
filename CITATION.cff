@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "Please cite this project overview when referring to the research concept."
+title: "Hypersonic Pilot: Brain-Inspired World-Model Flight Control Research"
+type: software
+authors:
+  - family-names: "Saravanakumar"
+    given-names: "Kumar Prabhakaran"
+repository-code: "https://github.com/kumarprabhakaransaravanakumar-wq/hypersonic-pilot-research-overview"
+abstract: >-
+  A research overview of a safety-supervised, model-based reinforcement
+  learning architecture for coupled high-speed flight control.
+keywords:
+  - model-based reinforcement learning
+  - Dreamer
+  - world models
+  - flight control
+  - supersonic flight
+  - runtime assurance
+  - aerospace simulation
+license: LicenseRef-Proprietary
+
