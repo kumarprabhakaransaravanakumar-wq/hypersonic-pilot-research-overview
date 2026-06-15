@@ -1,20 +1,22 @@
 # Hypersonic Pilot
 
-## Brain-Inspired World-Model Flight Control Research
+## Safety-Supervised World-Model Flight Control Research
 
-Hypersonic Pilot is an independent research project exploring whether a
-model-based reinforcement-learning controller can learn useful coupled flight
-dynamics from simulation and apply that knowledge within a layered,
-safety-supervised control architecture.
+Hypersonic Pilot is an independent aerospace autonomy research project investigating model-based reinforcement learning, latent world models, robust flight control, system identification, and runtime assurance for transonic and supersonic aircraft.
 
-The project combines a learned latent world model with conventional flight
-control, runtime monitoring, and fallback control. The current research
-focuses on transonic and supersonic flight within the credible operating
-envelope of the available simulator. It does not claim validated hypersonic
-flight performance or readiness for real aircraft.
+The project combines a learned latent world model with conventional flight control, runtime monitoring, and fallback control. The current research focuses on transonic and supersonic flight within the credible operating envelope of the available simulator. It does not claim validated hypersonic flight performance or readiness for real aircraft.
 
 > This is a public research overview. The implementation, trained weights,
 > detailed safety configuration, and training infrastructure remain private.
+
+## Research Areas
+
+- Autonomous flight and high-speed aerospace control
+- Model-based reinforcement learning and Dreamer-style agents
+- Latent world models and short-horizon dynamics prediction
+- Robust control, runtime assurance, and fallback systems
+- Aerospace simulation and flight-envelope protection
+- System identification, uncertainty estimation, and fault injection
 
 ## Research Question
 
@@ -122,7 +124,13 @@ or proprietary implementation details.
 Discussion is welcome around model-based reinforcement learning, flight-control
 evaluation, system identification, uncertainty estimation, runtime assurance,
 and high-fidelity aerospace simulation. Please use this repository's GitHub
-Issues for research-oriented contact.
+Issues or Discussions for research-oriented contact.
+
+## Follow The Project
+
+- **Star** the repository to support the research and find future updates.
+- **Watch** repository activity for new public evaluation milestones.
+- Use **GitHub Issues** or **Discussions** to share related research and collaboration ideas.
 
 ## Availability
 
