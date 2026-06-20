@@ -68,39 +68,76 @@ Mach-dependent control effectiveness are also represented. Learned behavior is
 compared with these physical quantities and with the underlying flight
 simulator; reward alone is not treated as proof that the model learned physics.
 
-## Interim Evidence
+## June 2026 Research Snapshot
 
-The latest archived evaluation supports continuing the research direction:
+The latest private simulation run tested a unified Dreamer-style world model
+with a gray-box residual head trained over short rollouts. The evaluation
+compared two controllers using the same learned model:
 
-| Measure | Current evidence |
+- an amortized actor intended for real-time control;
+- an MPPI-style planner intended for slower evaluation and counterfactual
+  search.
+
+The result is useful, but deliberately not overstated. The planner passed the
+current sweep/coupling gates; the real-time actor did not. The residual model
+learned useful one-step corrections, but it still did not beat the hand-coded
+physics baseline over full open-loop EDGE rollouts.
+
+| Measure | Latest public-safe result |
 |---|---:|
-| Learned actor, ten-episode mean return | +1632.9 |
-| Planning controller, ten-episode mean return | +1064.3 |
-| Worst longitudinal response ratio | 0.700 |
-| Measurable lateral-coupling score | 0.500 |
-| Mean short-horizon error in feasible cells | 0.0662 |
-| 90th-percentile error in feasible cells | 0.0904 |
+| Actor mean return, selected checkpoint | +1640.2 |
+| Actor worst sweep ratio | 0.563, below 0.6 gate |
+| Planner mean return, selected checkpoint | +1146.6 |
+| Planner worst sweep ratio | 0.699, passes 0.6 gate |
+| Planner coupling score | 0.500, passes 0.4 gate |
+| Final-checkpoint planner mean return | +1363.6 |
+| Final-checkpoint planner worst sweep ratio | 0.686 |
+| EDGE one-step gray-box vs physics | gray-box better |
+| EDGE full-rollout gray-box vs physics | gray-box worse |
 
-These results indicate useful learned dynamics and control, but they do not
-establish exact equation discovery. Response magnitudes still show calibration
-error, some lateral probes remain unobservable, and long-horizon aggressive
-maneuvers require further testing.
+The current evidence supports a planner-first research direction: the learned
+world model is useful for planning and analysis, while the real-time actor
+still needs distillation or additional robustness training before promotion.
+See [STATUS_JUNE_2026.md](STATUS_JUNE_2026.md) for the bounded public status
+note.
+
+## What Was Tested
+
+The latest verdict used three categories of tests:
+
+1. **Closed-loop controller evaluation**: actor and planner were flown through
+   the same simulator cells and scored for return, longitudinal response, and
+   lateral coupling.
+2. **Physics-grounded response probes**: the model was checked against
+   sweep-response behavior rather than reward alone.
+3. **Open-loop generalization-law tests**: physics-only, neural decoder-only,
+   and gray-box residual predictors were compared on dynamic channels across
+   interior and held-out edge cells.
+
+The gray-box residual head improved over the pure neural decoder by a large
+margin, and it beat the physics baseline at one-step EDGE prediction. However,
+when rolled forward for the full horizon, its residual corrections accumulated
+drift. That is why this project does not claim broad discovery of a better
+general flight equation.
 
 ## Current Research Phase
 
-The active phase uses error-driven curriculum learning. Prediction-error maps
-identify weak but physically feasible Mach-altitude regions, which are sampled
-more often during the next training run. Conditions beyond structural or
-thermal limits remain stress tests and are not promoted as normal training
-targets.
+The active phase is focused on turning useful short-horizon learned corrections
+into stable long-horizon behavior. The main technical directions are:
+
+- robustness-first checkpoint selection rather than raw-return selection;
+- MPPI-to-actor distillation, because planning passes where the actor fails;
+- rollout-stability losses for the gray-box residual head;
+- error-driven curriculum over physically feasible weak Mach-altitude cells;
+- uncertainty-aware policy authority inside the runtime assurance stack.
 
 Next evaluation stages include:
 
-1. repeat actor, planner, and fidelity-map comparisons;
-2. full runtime integration through the supervisory safety stack;
-3. sensor and actuator fault-injection campaigns;
-4. uncertainty-aware policy authority;
-5. physics-based dynamics with a learned residual model.
+1. repeat actor and planner verdicts after checkpoint-selection updates;
+2. compare MPPI-distilled actor behavior against the current actor;
+3. test whether rollout-stability training reduces EDGE full-horizon drift;
+4. run full runtime integration through the supervisory safety stack;
+5. run sensor and actuator fault-injection campaigns.
 
 ## Scope And Limitations
 

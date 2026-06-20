@@ -8,6 +8,7 @@ This public repository intentionally contains only a research overview.
 - conceptual architecture;
 - high-level physical grounding;
 - selected aggregate evaluation results;
+- bounded research-status updates;
 - limitations and research roadmap.
 
 ## Private
@@ -21,4 +22,3 @@ This public repository intentionally contains only a research overview.
 
 The separation allows public discussion and discoverability without presenting
 an experimental controller as deployable flight software.
-

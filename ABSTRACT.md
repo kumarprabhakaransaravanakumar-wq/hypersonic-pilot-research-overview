@@ -14,13 +14,15 @@ coupling tests, and short-horizon prediction maps over Mach-altitude cells.
 Physical feasibility is enforced using dynamic-pressure and thermal-envelope
 constraints so that extrapolation outside the safe envelope is not confused
 with nominal flight capability. Interim simulation results show positive
-closed-loop performance, longitudinal response across subsonic-to-supersonic
-conditions, measurable supersonic lateral coupling, and low aggregate
-short-horizon error over most feasible cells. Remaining limitations include
-response-magnitude calibration, incomplete lateral observability, simulator
-fidelity, and the absence of flight-test validation.
+closed-loop performance and useful planning behavior from the learned world
+model. In the latest private verdict, the planning controller passed current
+sweep/coupling gates while the amortized real-time actor narrowly failed the
+sweep gate. A gray-box residual head improved over a pure neural decoder and
+beat the physics baseline at one-step EDGE prediction, but it remained worse
+than physics over full open-loop EDGE rollouts. Remaining limitations include
+residual drift, response-magnitude calibration, incomplete lateral
+observability, simulator fidelity, and the absence of flight-test validation.
 
-The near-term objective is to determine whether error-driven curriculum
-learning improves weak feasible regions without degrading broad-envelope
-control, followed by end-to-end runtime assurance and fault-injection tests.
-
+The near-term objective is to convert short-horizon learned corrections into
+stable long-horizon behavior, distill planner performance into the real-time
+actor, and then run end-to-end runtime assurance and fault-injection tests.
